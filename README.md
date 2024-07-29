@@ -18,6 +18,18 @@
 
 ## Usage
 
+1. Download the distribution file from the [releases page](https://github.com/alex1xu/Lipid-Droplet-Counting/releases).
+   
+2. Install the package:
+```sh
+pip install LDC-0.1-py3-none-any.whl
+```
+
+3. After installing the package, you can run the command using:
+```sh
+count /path/to/input_folder
+```
+
 ## Novel Pipeline Breakdown
 
 ![Screenshot 2024-07-25 125837](https://github.com/user-attachments/assets/1c968439-58a2-4f92-9766-d384d0be18d1)
