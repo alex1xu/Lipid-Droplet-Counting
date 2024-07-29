@@ -79,18 +79,15 @@ The Expansion Path consisted of upsampling blocks, each with:
 
 A 1×1 convolution output layer reduced the feature maps for binary segmentation with a sigmoid activation function for pixel-wise classification.
 
+The Adam optimizer is used with an initial learning rate of 5*10<sup>-4</sup>. U-Net trained for 6 epochs with a batch size of 32.
+
 ### Centroid Identification
 
-Density maps
-Center of mass detection on .... in the future hough transform for circle detection may be used in place of centroid identification
+The centroid detection function identified the centers of mass of segmented objects in output density maps. In the future, Hough circle transform may be used in place of centroid identification.
 
 ### Stain Subtraction
 
- 1. Convert to grayscale to focus on intensity values
- 2. Contrast Limited Adaptive Histogram Equalization (CLAHE) to enhance the local contrast
- 3. Mean Bilateral Filtering and Non-Local Means Denoising to reduce noise without blurring the stain boundaries
- 4. Otsu's thresholding to convert to a binary image
- 5. Dilation to fill small gaps and remove small objects
+The stain subtraction technique isolates the background stained cells in images. Images were first converted to grayscale. Then, contrast enhancement and denoising techniques were applied. Otsu's thresholding is applied to extract a binary image. Finally, dilation was used to fill small gaps and remove small objects.
 
 ![Screenshot 2024-07-26 135305](https://github.com/user-attachments/assets/24d98cf8-ceff-44b4-a971-2cfc13ff4181)
 
