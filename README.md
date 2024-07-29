@@ -30,21 +30,54 @@ pip install LDC-0.1-py3-none-any.whl
 count /path/to/input_folder
 ```
 
+In the current version, input images must be in standard pixel sizes such as 1024x768, or any multiples of 64.
+
 ## Novel Pipeline Breakdown
 
 ![Screenshot 2024-07-25 125837](https://github.com/user-attachments/assets/1c968439-58a2-4f92-9766-d384d0be18d1)
 
-### Data Augmentation
+This repository contains a Python package for counting lipid droplets in images of Oil Red O-stained neuronal cells. It is designed to work with microscopy images by dividing them into smaller tiles for efficient processing. The main components are data augmentation, U-Net prediction, centroid identification, and stain subtraction.
 
-Tiling, albumentations etc... balancing
+### Data Sources and Augmentation
+
+Microscopy images containing a total of approximately 4,000 Oil Red O-stained neuronal cell cultures at 50x magnification were obtained and manually segmented. Images and masks used for training were then cropped into 64x64 tiles. Minimal data preprocessing was applied. Image pixel values are normalized to a range of [0, 1]. 
+
+A majority of tile masks were empty and contained no droplets. To account for this imbalance, my initial approach removed all empty masks. However, experimentation showed that a 1:1 ratio of tiles containing droplets and empty tiles was optimal.
 
 ![Screenshot 2024-07-26 125907](https://github.com/user-attachments/assets/bca708ba-fc8c-4656-b82a-0e63ed040611)
 
-show images
+_Generated density maps of an empty tile for the two approaches to handling class imbalance. Yellow indicates a high probability of belonging to the positive class while blue indicates a low probability._
+
+The dataset was split into training and validation sets in an 80:20 ratio. Data augmentation was applied to both the training and validation sets due to the low number of images. The following augmentations were applied using the Albumentations library:
+ - CLAHE (Contrast Limited Adaptive Histogram Equalization)
+ - Blur
+ - Color Jitter
+ - Sharpen
+ - RGB Shift
+ - Defocus
+ - Hue, Saturation, and Value shift
+ - Vertical and Horizontal Flip
+ - Random Rotation
+ - Grid Shuffle
+ - Channel Dropout
+ - Multiplicative Noise
+ - Optical and Grid Distortion
+ - Pixel Dropout
 
 ### U-Net Training
 
-Define layers, try to get architecture visualization
+U-Net is a convolutional neural network designed for biomedical image segmentation tasks. It has a distinctive architecture that includes an encoder-decoder structure with skip connections.
+
+The Contraction Path consisted of 4 downsampling blocks, each with:
+ - Convolutional Layers: Apply two 3×3 convolutions with ReLU activation, followed by a dropout layer
+ - MaxPooling Layer: Reduce spatial dimensions by a factor of 2
+
+The Expansion Path consisted of upsampling blocks, each with:
+ - Transpose Convolutional Layer: Upsample the feature maps
+ - Concatenation with Skip Connection: Merge feature maps from the encoder
+ - Convolutional Layers: Refine the combined features
+
+A 1×1 convolution output layer reduced the feature maps for binary segmentation with a sigmoid activation function for pixel-wise classification.
 
 ### Centroid Identification
 
