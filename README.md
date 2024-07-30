@@ -106,6 +106,6 @@ The model predictions were manually verified through qualitative evaluation by a
 
 ![Screenshot 2024-07-29 202600](https://github.com/user-attachments/assets/87f9c630-32d8-47cb-90fb-6bc385e7567f)
 
-Comparisons with human ground truths on a testing set are also shown below. Results indicate that for every 21.6 &pm; 5.0 cells in an image, one is miscounted.
+Comparisons with human ground truths on a testing set are also shown below. Results indicate that for every 21.6&pm;5.0 droplets in an image, one is miscounted.
 
 ![Screenshot 2024-07-29 204207](https://github.com/user-attachments/assets/a29d7512-bba4-4649-8b77-e0ca48ef35a6)
