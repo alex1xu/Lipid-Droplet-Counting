@@ -1,4 +1,4 @@
-# Neuronal Cell Lipid Droplet Counting Software
+# LipoLens: Smart Lipid Droplet Counting for Cells 
 
 > First-ever machine learning software to count lipid droplets in neuroblastoma cell lines
 
@@ -10,7 +10,7 @@
 
  * [Usage](#usage)
  * [Novel Pipeline Breakdown💃](#novel-pipeline-breakdown)
-   * [Data Augmentation](#data-augmentation)
+   * [Data Augmentation](#data-sources-and-augmentation)
    * [U-Net Training](#u-net-training)
    * [Centroid Identification](#centroid-identification)
    * [Stain Subtraction](#stain-subtraction)
@@ -36,11 +36,11 @@ In the current version, input images must be in standard pixel sizes such as 102
 
 ![Screenshot 2024-07-25 125837](https://github.com/user-attachments/assets/1c968439-58a2-4f92-9766-d384d0be18d1)
 
-This repository contains a Python package for counting lipid droplets in images of Oil Red O-stained neuronal cells. It is designed to work with microscopy images by dividing them into smaller tiles for efficient processing. The main components are data augmentation, U-Net prediction, centroid identification, and stain subtraction.
+This repository contains a Python package for counting lipid droplets in images of Oil Red O-stained neuronal cells. It is designed to work with microscopy images by dividing them into smaller tiles for efficient processing. The main components are data augmentation, U-Net prediction, centroid identification, and stain subtraction. The methodology is adapted from [Hassanlou et al., 2019](https://ieeexplore.ieee.org/abstract/document/8965200). 
 
 ### Data Sources and Augmentation
 
-Microscopy images containing a total of approximately 4,000 Oil Red O-stained neuronal cell cultures at 50x magnification were obtained and manually segmented. Images and masks used for training were then cropped into 64x64 tiles. Minimal data preprocessing was applied. Image pixel values are normalized to a range of [0, 1]. 
+Microscopy images containing a total of approximately 4,000 stained neuronal cell cultures at 50x magnification were obtained and manually segmented. Images and masks used for training were then cropped into 64x64 tiles. Minimal data preprocessing was applied. Image pixel values are normalized to a range of [0, 1]. 
 
 A majority of tile masks were empty and contained no droplets. To account for this imbalance, the initial approach was to remove all empty masks. However, experimentation showed that a 1:1 ratio of tiles containing droplets and empty tiles was optimal.
 
@@ -106,6 +106,6 @@ The model predictions were manually verified through qualitative evaluation by a
 
 ![Screenshot 2024-07-29 202600](https://github.com/user-attachments/assets/87f9c630-32d8-47cb-90fb-6bc385e7567f)
 
-Comparisons with human ground truths on a testing set are also shown below. Results indicate that for every 21.6&pm;5.0 droplets in an image, one is miscounted.
+Comparisons with human ground truths on a testing set are also shown below. Model predictions achieve an R-squared of 0.97 relative to human ground truths. Results indicate that for every 21.6&pm;5.0 droplets in an image, one is miscounted.
 
 ![Screenshot 2024-07-29 204207](https://github.com/user-attachments/assets/a29d7512-bba4-4649-8b77-e0ca48ef35a6)
