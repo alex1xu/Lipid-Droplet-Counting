@@ -4,7 +4,7 @@
 
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=for-the-badge&logo=Jupyter)](https://jupyter.org/try) ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white) ![Keras](https://img.shields.io/badge/Keras-FF0000?style=for-the-badge&logo=keras&logoColor=white) ![SciPy](https://img.shields.io/badge/SciPy-654FF0?style=for-the-badge&logo=SciPy&logoColor=white)
 
-![Screenshot 2024-07-26 133909](https://github.com/user-attachments/assets/971cf081-e559-4602-8124-dd499d6199a2)![Screenshot 2024-07-26 133846](https://github.com/user-attachments/assets/e0aa40e7-277b-4358-ab46-716cf6d39706)
+![Screenshot 2024-07-29 202600](https://github.com/user-attachments/assets/fac3c6ac-406f-4f0b-8f6d-3c1d6de584eb)
 
 ## Table of Contents
 
@@ -85,19 +85,22 @@ The Adam optimizer is used with an initial learning rate of 5*10<sup>-4</sup>. U
 
 The centroid detection function identified the centers of mass of segmented objects in output density maps. In the future, Hough circle transform may be used in place of centroid identification.
 
+![Screenshot 2024-07-29 201711](https://github.com/user-attachments/assets/00db10bf-24cb-4ce5-86cb-cbb4dac354f7)
+
 ### Stain Subtraction
 
 The stain subtraction technique isolates the background stained cells in images. Images were first converted to grayscale. Then, contrast enhancement and denoising techniques were applied. Otsu's thresholding is applied to extract a binary image. Finally, dilation was used to fill small gaps and remove small objects.
 
-![Screenshot 2024-07-26 135305](https://github.com/user-attachments/assets/24d98cf8-ceff-44b4-a971-2cfc13ff4181)
-
-_Image stain automatically segmented_
+![Screenshot 2024-07-29 202349](https://github.com/user-attachments/assets/7a815a38-f299-4d23-9a89-d5aa087d8b33)
 
 Centroids detected outside of cell stain masks are then removed to obtain the final droplet count. 
 
 ## Model Evaluation
 
-![Screenshot 2024-07-26 133909](https://github.com/user-attachments/assets/971cf081-e559-4602-8124-dd499d6199a2) ![Screenshot 2024-07-26 133846](https://github.com/user-attachments/assets/e0aa40e7-277b-4358-ab46-716cf6d39706)
+The model predictions were manually verified through qualitative evaluation by a biomedicine professor with over 20 years of domain expertise. 
 
-![Screenshot 2024-07-26 130700](https://github.com/user-attachments/assets/713b8351-2ea0-4053-a25b-8b08c3680c22)
+![Screenshot 2024-07-29 202600](https://github.com/user-attachments/assets/87f9c630-32d8-47cb-90fb-6bc385e7567f)
 
+Comparison with human ground truths on a testing set are also shown below. Results indicate that for every 21.6 &pm; 5.0 cells in an image, one is miscounted.
+
+![Screenshot 2024-07-29 204207](https://github.com/user-attachments/assets/a29d7512-bba4-4649-8b77-e0ca48ef35a6)
